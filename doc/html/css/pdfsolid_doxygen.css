@@ -1,0 +1,311 @@
+body {
+  background-color: #fff;
+  color: #000;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+body, table, div, p, dl {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+:link,
+:visited {
+  color: #4665A2;
+}
+
+:link:hover,
+:visited:hover {
+  border-bottom: 1px dotted #4665A2;
+}
+
+#pdfsolid-doxygen-top {
+  background: #fff;
+  margin: 0 0 16px;
+}
+
+#titlearea {
+  border-bottom: 1px solid #5373B4;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#titlearea table {
+  border-collapse: collapse;
+  width: auto;
+}
+
+#projectrow {
+  height: 64px;
+}
+
+#projectlogo {
+  padding: 8px 10px 8px 16px;
+  vertical-align: middle;
+}
+
+#projectlogo img {
+  display: block;
+  height: 48px;
+  width: 48px;
+}
+
+#projectalign {
+  padding: 8px 0;
+  vertical-align: middle;
+}
+
+#projectname {
+  color: #354C7B;
+  font: 300% Tahoma, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#projectnumber {
+  color: #5373B4;
+  font-size: 40%;
+  margin-left: 8px;
+}
+
+#projectbrief {
+  color: #879ECB;
+  font: 120% Tahoma, Arial, sans-serif;
+  margin-top: 4px;
+}
+
+.tabs,
+.tabs2 {
+  background-image: url('../images/tab_b.png');
+  display: table;
+  font-family: 'Lucida Grande', Geneva, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  width: 100%;
+  z-index: 101;
+}
+
+.tabs2 {
+  font-size: 10px;
+}
+
+.tablist {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.tablist li {
+  background-image: url('../images/tab_b.png');
+  display: table-cell;
+  float: left;
+  line-height: 36px;
+  list-style: none;
+}
+
+.tablist a {
+  background-image: url('../images/tab_s.png');
+  background-position: right;
+  background-repeat: no-repeat;
+  color: #283A5D;
+  display: block;
+  font-weight: bold;
+  outline: none;
+  padding: 0 20px;
+  text-decoration: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+.tablist a:hover {
+  background-image: url('../images/tab_h.png');
+  background-repeat: repeat-x;
+  border-bottom: 0;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+}
+
+.tablist li.current a {
+  background-image: url('../images/tab_a.png');
+  background-repeat: repeat-x;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
+}
+
+nav[role='navigation'] {
+  display: none;
+}
+
+main {
+  color: #333;
+  margin: 0;
+  max-width: 1180px;
+  padding: 0 12px 44px;
+}
+
+.table-of-contents main {
+  margin-left: 0;
+}
+
+main h1[class],
+main > h1:first-child {
+  border-bottom: 1px solid #879ECB;
+  color: #354C7B;
+  font-size: 150%;
+  font-weight: bold;
+  line-height: 28px;
+  margin: 10px 2px 18px;
+  padding-bottom: 8px;
+}
+
+main h2 {
+  border-bottom: 1px solid #879ECB;
+  color: #354C7B;
+  font-size: 150%;
+  font-weight: normal;
+  margin-top: 1.75em;
+  padding-bottom: 4px;
+  padding-top: 8px;
+}
+
+main h3 {
+  color: #354C7B;
+}
+
+section.description,
+.documentation-section,
+main > p,
+main > ul,
+main > pre {
+  max-width: 1040px;
+}
+
+pre,
+code {
+  background-color: #f5f7fc;
+  border-radius: 2px;
+  font-family: 'Source Code Pro', Monaco, monospace;
+}
+
+pre {
+  border: 1px solid #d9e0f2;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 10px 12px;
+}
+
+.method-detail,
+.attribute-method-details .method-detail,
+.constants-list,
+.aliases-list {
+  background: #fff;
+  border: 1px solid #d9e0f2;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.method-heading {
+  background: #e8eefc;
+  border-bottom: 1px solid #c6d2ee;
+  color: #354C7B;
+}
+
+.method-name,
+.attribute-method-heading .method-name {
+  color: #354C7B;
+}
+
+.method-description {
+  background: #fff;
+}
+
+.method-source-code pre {
+  background: #f5f7fc;
+}
+
+.directory {
+  margin: 10px 0 18px;
+  width: 100%;
+}
+
+table.directory {
+  border-collapse: collapse;
+  font: 14px Roboto, sans-serif;
+  width: 100%;
+}
+
+table.directory tr.even {
+  background-color: #f8f9fc;
+}
+
+table.directory tr.odd {
+  background-color: #fff;
+}
+
+table.directory td {
+  border-bottom: 1px solid #d9e0f2;
+  padding: 7px 8px;
+  vertical-align: top;
+}
+
+table.directory td.entry {
+  white-space: nowrap;
+  width: 280px;
+}
+
+table.directory td.desc {
+  color: #333;
+}
+
+.icona {
+  display: inline-block;
+  margin-right: 8px;
+  text-align: center;
+  width: 18px;
+}
+
+.icon {
+  background-color: #354C7B;
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 16px;
+  min-width: 16px;
+}
+
+a.el {
+  font-weight: bold;
+}
+
+ul.link-list .type {
+  background: #5373B4;
+}
+
+#validator-badges {
+  border-top: 1px solid #d9e0f2;
+  color: #555;
+  margin-left: 0;
+  padding: 10px 22px 24px;
+}
+
+@media (max-width: 860px) {
+  #projectname {
+    font-size: 185%;
+  }
+
+  main,
+  #validator-badges {
+    margin-left: 0;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .tablist li {
+    float: none;
+  }
+}

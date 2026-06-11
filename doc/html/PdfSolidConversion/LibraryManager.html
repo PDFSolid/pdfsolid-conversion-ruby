@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module PdfSolidConversion::LibraryManager - PDFSolid Conversion Ruby API Reference</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
+</script>
+
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+
+<link href="../css/pdfsolid_doxygen.css?v=3" rel="stylesheet">
+<script src="../js/pdfsolid_doxygen_nav.js?v=3" defer></script>
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-default_resource_path">#default_resource_path</a>
+    
+    <li ><a href="#method-i-initialize_sdk">#initialize_sdk</a>
+    
+    <li ><a href="#method-i-license_verify">#license_verify</a>
+    
+    <li ><a href="#method-i-page_count">#page_count</a>
+    
+    <li ><a href="#method-i-release">#release</a>
+    
+    
+    <li ><a href="#method-i-remaining_page_quota">#remaining_page_quota</a>
+    
+    
+    
+    <li ><a href="#method-i-set_logger">#set_logger</a>
+    
+    <li ><a href="#method-i-version">#version</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-PdfSolidConversion::LibraryManager">
+  <h1 id="module-PdfSolidConversion::LibraryManager" class="module">
+    module PdfSolidConversion::LibraryManager
+  </h1>
+
+  <section class="description">
+    
+<p>Provides lifecycle and utility APIs for the native PDFSolid <a href="Conversion.html"><code>Conversion</code></a> SDK.</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="DEFAULT_RESOURCE_PATH">DEFAULT_RESOURCE_PATH
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-default_resource_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">default_resource_path</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the packaged SDK resource directory used by default initialization.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="default_resource_path-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">default_resource_path</span>
+  <span class="ruby-constant">DEFAULT_RESOURCE_PATH</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-initialize_sdk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">initialize_sdk</span><span
+            class="method-args">(resource_path = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Initializes the native SDK with the specified resource directory. Uses the packaged resource directory when resource_path is nil or empty.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="initialize_sdk-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize_sdk</span>(<span class="ruby-identifier">resource_path</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-identifier">resource_path</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">resource_path</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">default_resource_path</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">resource_path</span>.<span class="ruby-identifier">to_s</span>
+  <span class="ruby-identifier">fonts_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;fonts&quot;</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">fonts_path</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;SDK resource fonts directory not found: #{fonts_path}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_Initialize</span>(<span class="ruby-identifier">path</span>)
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-license_verify" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">license_verify</span><span
+            class="method-args">(license, device_id, app_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Verifies the SDK license with a device ID and application ID. Returns an <a href="ErrorCode.html"><code>ErrorCode</code></a> value.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="license_verify-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 10</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">license_verify</span>(<span class="ruby-identifier">license</span>, <span class="ruby-identifier">device_id</span>, <span class="ruby-identifier">app_id</span>)
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_LicenseVerify</span>(<span class="ruby-identifier">license</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">device_id</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">app_id</span>.<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-page_count" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">page_count</span><span
+            class="method-args">(file_path, password = &quot;&quot;)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the page count of a PDF document.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="page_count-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page_count</span>(<span class="ruby-identifier">file_path</span>, <span class="ruby-identifier">password</span> = <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_GetPageCount</span>(<span class="ruby-identifier">file_path</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">password</span>.<span class="ruby-identifier">to_s</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-release" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">release</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Releases resources held by the native SDK.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="release-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">release</span>
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_Release</span>()
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-remaining_page_quota" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remaining_page_quota</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the remaining licensed page quota.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="remaining_page_quota-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">remaining_page_quota</span>
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_GetRemainingPageQuota</span>()
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_logger" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_logger</span><span
+            class="method-args">(enable_info, enable_warning)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Enables or disables native SDK info and warning logs.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="set_logger-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">set_logger</span>(<span class="ruby-identifier">enable_info</span>, <span class="ruby-identifier">enable_warning</span>)
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_SetLogger</span>(<span class="ruby-identifier">enable_info</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">enable_warning</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>)
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the native SDK version string.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="version-source">
+            <pre><span class="ruby-comment"># File pdfsolid_sdk/ruby/lib/pdfsolid_conversion/library_manager.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">version</span>
+  <span class="ruby-identifier">buffer</span> = <span class="ruby-string">&quot;\0&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">64</span>
+  <span class="ruby-constant">Native</span>.<span class="ruby-constant">CPDF_GetVersion</span>(<span class="ruby-identifier">buffer</span>)
+  <span class="ruby-identifier">buffer</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">&quot;\0&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
