@@ -1,43 +1,42 @@
 # PDFSolid Conversion SDK for Ruby
 
-PDFSolid Conversion SDK is a high-performance library designed for extracting and transforming the data within your PDF files, such as text, images, tables, links, and annotations, into various file formats. The Conversion SDK retains the original document layout and the properties of the file data, helping you build a reliable document conversion workflow in Ruby applications.
+High-performance Ruby SDK for converting PDF to Word, Excel, PowerPoint, HTML, Image, TXT, RTF, CSV, JSON, Markdown, Searchable PDF, and OFD with AI-powered OCR, layout analysis, and table recognition.
 
-## Supported Conversions
+## Features
 
-- Convert PDF to Word (.docx)
-- Convert PDF to Excel (.xlsx)
-- Convert PDF to PowerPoint (.pptx)
-- Convert PDF to HTML (.html)
-- Convert PDF to CSV (.csv)
-- Convert PDF to Image (.png, .jpg, .jpeg, .jpeg2000, .bmp, .tiff, .tga, .gif, .webp)
-- Convert PDF to Plain Text (.txt)
-- Convert PDF to Rich Text Format (.rtf)
-- Convert PDF to Searchable PDF (.pdf)
-- Convert PDF to OFD (.ofd)
-- Convert PDF to Structured Data (.json)
-- Convert PDF to Markdown (.md)
+- **PDF to Word** (.docx) — Flow and Box layout modes
+- **PDF to Excel** (.xlsx) — per-table, per-page, or per-document worksheet options
+- **PDF to PowerPoint** (.pptx)
+- **PDF to HTML** (.html) — single/multi-page with optional bookmark navigation
+- **PDF to CSV** (.csv)
+- **PDF to Image** (.png, .jpg, .jpeg, .jpeg2000, .bmp, .tiff, .tga, .gif, .webp) — color/grayscale/binary, configurable scaling
+- **PDF to Plain Text** (.txt) — optional table format preservation
+- **PDF to RTF** (.rtf)
+- **PDF to Searchable PDF** (.pdf) — OCR with transparent text layer
+- **PDF to OFD** (.ofd) — OCR, page background preservation, transparent text layer
+- **PDF to JSON** (.json) — structured data with table extraction
+- **PDF to Markdown** (.md)
 
-## AI-Powered Document Tools
+### AI-Powered Document Tools
 
-- Optical Character Recognition (OCR)
-- Layout Analysis
-- Table Recognition
+- **OCR** — Optical Character Recognition for scanned documents and images
+- **Layout Analysis** — AI-based document structure parsing
+- **Table Recognition** — AI-based table structure reconstruction
+- **Custom AI Models** — plug in your own OCR, layout, or table engine via callbacks (SDK v1.1.0+)
 
 ## Requirements
 
 | Platform | System Requirements | Development Environment |
 | -------- | ------------------- | ----------------------- |
-| Linux | Linux x86_64 | Ruby 2.7 or higher |
-
-The Ruby SDK does not require third-party Ruby gems at runtime. It uses Ruby standard libraries, including `Fiddle`, `FileUtils`, `OptionParser`, and `Thread`.
+| Linux | Linux x86_64 | Ruby 2.7+ |
 
 ## Quick Start
 
-### 1. Install the SDK
+### 1. Get a License
 
-Contact sales@pdfsolid.com to obtain the PDFSolid Conversion SDK for Ruby.
+Contact [sales@pdfsolid.com](mailto:sales@pdfsolid.com) for a 30-day free trial or commercial license.
 
-### 2. Apply License
+### 2. Apply License and Initialize
 
 ```ruby
 require "pdfsolid_conversion"
@@ -48,50 +47,40 @@ raise "license verification failed: #{code}" unless code == PdfSolidConversion::
 PdfSolidConversion::LibraryManager.initialize_sdk
 ```
 
-### 3. Convert PDF to Word
+### 3. Convert
 
 ```ruby
 options = PdfSolidConversion::ConvertOptions.new
-options.page_layout_mode = PdfSolidConversion::PageLayoutMode::FLOW
-
-result = PdfSolidConversion::Conversion.start_pdf_to_word(
-  "input.pdf",
-  "",
-  "output.docx",
-  options
-)
+PdfSolidConversion::Conversion.start_pdf_to_word("input.pdf", "", "output.docx", options)
 ```
 
-### 4. Convert PDF to Excel
+### Release Resources
+
+```ruby
+PdfSolidConversion::LibraryManager.release_document_ai_model
+PdfSolidConversion::LibraryManager.release
+```
+
+## Conversion Examples
+
+### PDF to Excel
 
 ```ruby
 options = PdfSolidConversion::ConvertOptions.new
 options.excel_worksheet_option = PdfSolidConversion::ExcelWorksheetOption::FOR_TABLE
-
-result = PdfSolidConversion::Conversion.start_pdf_to_excel(
-  "input.pdf",
-  "",
-  "output.xlsx",
-  options
-)
+PdfSolidConversion::Conversion.start_pdf_to_excel("input.pdf", "", "output.xlsx", options)
 ```
 
-### 5. Convert PDF to Image
+### PDF to Image
 
 ```ruby
 options = PdfSolidConversion::ConvertOptions.new
 options.image_type = PdfSolidConversion::ImageType::PNG
 options.image_scaling = 2.0
-
-result = PdfSolidConversion::Conversion.start_pdf_to_image(
-  "input.pdf",
-  "",
-  "output",
-  options
-)
+PdfSolidConversion::Conversion.start_pdf_to_image("input.pdf", "", "output", options)
 ```
 
-### 6. OCR Conversion
+### PDF to Searchable PDF (OCR)
 
 ```ruby
 PdfSolidConversion::LibraryManager.set_document_ai_model("/path/to/documentai.model", -1)
@@ -99,93 +88,38 @@ PdfSolidConversion::LibraryManager.set_document_ai_model("/path/to/documentai.mo
 options = PdfSolidConversion::ConvertOptions.new
 options.enable_ocr = true
 options.languages = [PdfSolidConversion::OCRLanguage::ENGLISH]
-
-result = PdfSolidConversion::Conversion.start_pdf_to_word(
-  "scan.pdf",
-  "",
-  "output.docx",
-  options
-)
+options.transparent_text = true
+PdfSolidConversion::Conversion.start_pdf_to_searchable_pdf("scan.pdf", "", "output.pdf", options)
 ```
 
-### 7. Release Resources
+### PDF to JSON with Table Extraction
 
 ```ruby
-PdfSolidConversion::LibraryManager.release_document_ai_model
-PdfSolidConversion::LibraryManager.release
+options = PdfSolidConversion::ConvertOptions.new
+options.json_contain_table = true
+PdfSolidConversion::Conversion.start_pdf_to_json("input.pdf", "", "output.json", options)
 ```
 
-## Running the Demo
+### Custom AI Engine (SDK v1.1.0+)
 
-The SDK package includes a demo script at `samples/demo/demo.rb`:
+```ruby
+callback = PdfSolidConversion::ConvertCallback.new
+callback.on_ocr = ->(image_path) { run_my_ocr_model(image_path) }
+callback.get_ocr_result = -> { @ocr_json_result }
 
-```shell
-cd /path/to/linux-x86_64
-ruby samples/demo/demo.rb
+options = PdfSolidConversion::ConvertOptions.new
+options.enable_ocr = true
+options.languages = [PdfSolidConversion::OCRLanguage::ENGLISH]
+PdfSolidConversion::Conversion.start_pdf_to_word("input.pdf", "", "output.docx", options, callback)
 ```
-
-With custom inputs:
-
-```shell
-ruby samples/demo/demo.rb \
-  --output /tmp/pdfsolid_ruby_demo_out \
-  /path/to/input.pdf
-```
-
-With license and multi-threading:
-
-```shell
-ruby samples/demo/demo.rb \
-  --license /path/to/license.xml \
-  --output /tmp/pdfsolid_ruby_demo_out \
-  --threads 2 \
-  samples/input_files/word.pdf \
-  samples/input_files/excel.pdf
-```
-
-## Key Features
-
-### Conversion Options
-
-- **Contain Image & Annotation**: Control whether images and annotations are included in output.
-- **Page Layout Mode**: Choose between Flow Layout (flexible, editable) and Box Layout (precise coordinate-based).
-- **Page Range**: Convert specific pages or the entire document.
-- **Output Font**: Set preferred font for output documents.
-- **Formula to Image**: Convert formulas to images for visual consistency.
-
-### OCR Support
-
-Supports 15+ languages including Chinese, English, Korean, Japanese, Latin, Devanagari, Cyrillic, Arabic, and more. OCR options include:
-
-- `INVALID_CHARACTER`: OCR for garbled/invalid characters only.
-- `SCAN_PAGE`: OCR for scanned pages only.
-- `INVALID_CHARACTER_AND_SCAN_PAGE`: Both of the above.
-- `ALL`: OCR for all pages and characters.
-
-### AI-Powered Features
-
-- **Layout Analysis**: AI-based document structure detection for paragraphs, titles, figures, tables, headers, footers, and more.
-- **Table Recognition**: Reconstructs table structure including merged cells, spanning cells, and borderless tables.
-- **Custom AI Models (SDK v1.1.0+)**: Plug in your own AI inference engine via callbacks at the native C/C++ layer.
-
-### Supported Image Formats
-
-JPG, JPEG, JPEG2000, PNG, BMP, TIFF, TGA, GIF, WEBP with configurable color modes (Color, Gray, Binary) and scaling.
 
 ## Documentation
 
-- [Developer Guide](doc/developer_guide_ruby.md) - Detailed usage instructions and API examples
-- [API Reference](doc/api_reference_ruby.html) - Complete API reference
-
-## License
-
-PDFSolid Conversion SDK is a commercial SDK. Contact sales@pdfsolid.com for licensing information.
-
-- Free 30-day trial license available upon request.
-- Commercial licenses are bound to developer device ID.
+- [Developer Guide](doc/developer_guide_ruby.md)
+- [API Reference](doc/api_reference_ruby.html)
 
 ## Contact
 
 - Website: [https://www.pdfsolid.com](https://www.pdfsolid.com/)
-- Sales: sales@pdfsolid.com
+- Sales: [sales@pdfsolid.com](mailto:sales@pdfsolid.com)
 - Support: [support@pdfsolid.com](mailto:support@pdfsolid.com)
