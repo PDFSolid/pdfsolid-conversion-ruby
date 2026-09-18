@@ -30,7 +30,7 @@
       '    <table cellspacing="0" cellpadding="0"><tbody><tr id="projectrow">' +
       '      <td id="projectlogo"><img alt="Logo" src="' + prefix + 'App.ico"/></td>' +
       '      <td id="projectalign">' +
-      '        <div id="projectname">PDFSolid Conversion Ruby SDK<span id="projectnumber">&nbsp;1.1.0</span></div>' +
+      '        <div id="projectname">PDFSolid Conversion Ruby SDK<span id="projectnumber">&nbsp;4.0.0</span></div>' +
       '        <div id="projectbrief">API Documentation</div>' +
       '      </td>' +
       '    </tr></tbody></table>' +

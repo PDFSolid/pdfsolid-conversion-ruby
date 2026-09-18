@@ -237,7 +237,11 @@ def run_conversion_suite(options)
     searchable_options.languages = [PdfSolidConversion::OCRLanguage::ENGLISH]
     run_conversion("pdf to searchable pdf", :start_pdf_to_searchable_pdf, word_pdf, File.join(output_dir, "pdf.pdf"), searchable_options)
 
-    run_conversion("pdf to ofd", :start_pdf_to_ofd, word_pdf, File.join(output_dir, "pdf.ofd"), layout_options)
+    ofd_options = box_layout_options
+    ofd_options.enable_ocr = true
+    ofd_options.transparent_text = true
+    ofd_options.languages = [PdfSolidConversion::OCRLanguage::ENGLISH]
+    run_conversion("pdf to ofd", :start_pdf_to_ofd, word_pdf, File.join(output_dir, "pdf.ofd"), ofd_options)
 
     puts "all conversion tasks finished"
   ensure

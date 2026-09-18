@@ -3,7 +3,7 @@ require "fiddle"
 module PdfSolidConversion
   # Stores conversion settings passed to native conversion APIs.
   class ConvertOptions
-    OPTION_STRUCT_SIZE = 568
+    OPTION_STRUCT_SIZE = 576
     STRING_BUFFER_SIZE = 256
     MAX_LANGUAGES = 32
 
@@ -17,6 +17,8 @@ module PdfSolidConversion
                   :excel_all_content,
                   :excel_csv_format,
                   :enable_ocr,
+                  :enable_document_orientation_classification,
+                  :enable_document_dewarp,
                   :transparent_text,
                   :txt_table_format,
                   :image_path_enhance,
@@ -45,6 +47,8 @@ module PdfSolidConversion
       @excel_all_content = false
       @excel_csv_format = false
       @enable_ocr = false
+      @enable_document_orientation_classification = false
+      @enable_document_dewarp = false
       @transparent_text = false
       @txt_table_format = true
       @image_path_enhance = false
@@ -101,8 +105,10 @@ module PdfSolidConversion
         @image_type.to_i,
         fixed_string(@font_name),
         fixed_string(@page_ranges),
-        language_pointer_value
-      ].pack("C15xifiiiiiia256a256J")
+        language_pointer_value,
+        bool(@enable_document_orientation_classification),
+        bool(@enable_document_dewarp)
+      ].pack("C15xifiiiiiia256a256JC2x6")
 
       pointer = Fiddle::Pointer.malloc(OPTION_STRUCT_SIZE)
       pointer[0, OPTION_STRUCT_SIZE] = packed

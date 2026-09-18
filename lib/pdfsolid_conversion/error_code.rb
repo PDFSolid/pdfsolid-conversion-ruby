@@ -39,6 +39,7 @@ module PdfSolidConversion
     LICENSE_UNSUPPORTED_API = 92
     LICENSE_MISMATCH = 93
     INVALID_TABLE = 94
+    UNSUPPORTED_FEATURE = 95
     UNKNOWN = 100
   end
 end
