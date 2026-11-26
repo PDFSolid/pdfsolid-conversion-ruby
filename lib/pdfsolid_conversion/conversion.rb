@@ -3,6 +3,16 @@ module PdfSolidConversion
   module Conversion
     module_function
 
+    # Converts a Word document to PDF. Only options.page_ranges and
+    # options.word_pdf_bookmark_mode take effect.
+    # Returns an ErrorCode value.
+    def start_word_to_pdf(file_path, output_path, options = ConvertOptions.new, callback: nil)
+      native_options = options.to_native
+      with_callback(callback) do |native_callback|
+        Native.CPDF_Ruby_StartWordToPDF(file_path.to_s, output_path.to_s, native_options, native_callback)
+      end
+    end
+
     # Converts a PDF document to a Word DOCX file.
     # Returns an ErrorCode value.
     def start_pdf_to_word(file_path, password, output_path, options = ConvertOptions.new, callback: nil)
@@ -69,11 +79,17 @@ module PdfSolidConversion
       call_conversion(:CPDF_Ruby_StartPDFToOfd, file_path, password, output_path, options, callback)
     end
 
+    def with_callback(callback, &block)
+      callback ? callback.with_native(&block) : block.call(0)
+    end
+    private_class_method :with_callback
+
     # Dispatches a conversion request to the selected native SDK function.
     def call_conversion(native_method, file_path, password, output_path, options, callback)
       native_options = options.to_native
-      native_callback = callback ? callback.to_native : 0
-      Native.public_send(native_method, file_path.to_s, password.to_s, output_path.to_s, native_options, native_callback)
+      with_callback(callback) do |native_callback|
+        Native.public_send(native_method, file_path.to_s, password.to_s, output_path.to_s, native_options, native_callback)
+      end
     end
   end
 end

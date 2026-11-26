@@ -8,5 +8,5 @@ require_relative "pdfsolid_conversion/library_manager"
 require_relative "pdfsolid_conversion/conversion"
 
 module PdfSolidConversion
-  DEFAULT_DOCUMENT_AI_MODEL_PATH = File.expand_path("pdfsolid_conversion/model/documentai.model", __dir__)
+  DEFAULT_DOCUMENT_AI_MODEL_PATH = File.expand_path("../resource/models/documentai.model", __dir__)
 end

@@ -1,0 +1,397 @@
+#ifndef BASE_TYPE_H
+#define BASE_TYPE_H
+
+#include "pdfsolid_config_macros.h"
+
+namespace pdfsolid {
+namespace base {
+
+/// \brief Type of the currently verified license.
+enum class LicenseType
+{
+    /// No license has been verified, or the license type is unavailable.
+    e_Unknown = 0,
+    /// Trial license.
+    e_Trial = 1,
+    /// Formal license.
+    e_Formal = 2,
+};
+
+/// \brief OCR language.
+enum class OCRLanguage{
+    /// Unknown language.
+    e_UNKNOWN = 0,
+    /// Chinese (Simplified).
+    e_Chinese,
+    /// Chinese (Traditional).
+    e_ChineseTra,
+    /// English.
+    e_English,
+    /// Korean.
+    e_Korean,
+    /// Japanese.
+    e_Japanese,
+    /// Latin.
+    e_Latin,
+    /// Devanagari.
+    e_Devanagari,
+    /// Cyrillic.
+    e_Cyrillic,
+    /// Arabic.
+    e_Arabic,
+    /// Tamil.
+    e_Tamil,
+    /// Telugu.
+    e_Telugu,
+    /// Kannada.
+    e_Kannada,
+    /// Thai.
+    e_Thai,
+    /// Greek.
+    e_Greek,
+    /// Eslav.
+    e_Eslav,
+    /// Automatically select language.
+    e_Auto
+};
+
+/// \brief Error code.
+enum class ErrorCode
+{
+    /// Success, and no error occurs.
+    e_ErrSuccess = 0,
+    /// Conversion process was canceled.
+    e_ErrCancel = 1,
+    /// File cannot be found or could not be opened.
+    e_ErrFile = 2,
+    /// Invalid password. Usually, this error may occur when loading a PDF document with password. When meet this, user should load document again with correct password.
+    e_ErrPDFPassword = 3,
+    /// PDF page failed to load.
+    e_ErrPDFPage = 4,
+    /// Format is invalid. For files, this may also mean that file is corrupted.
+    e_ErrPDFFormat = 5,
+    /// PDF document is encrypted by some unsupported security handler.
+    e_ErrPDFSecurity = 6,
+    /// Out-of-memory error occurs.
+    e_ErrOutOfMemory = 7,
+    /// System I/O error.
+    e_ErrIO = 8,
+    /// Folder compression failed.
+    e_ErrCompress = 9,
+
+    /// The license is invalid
+    e_ErrLicenseInvalid = 20,
+    /// The license has expired
+    e_ErrLicenseExpire = 21,
+    /// The license does not support the current platform
+    e_ErrLicenseUnsupportedPlatform = 22,
+    /// The license does not support the application id
+    e_ErrLicenseUnsupportedID = 23,
+    /// The license does not support the device id
+    e_ErrLicenseUnsupportedDevice = 24,
+    /// The license does not have the function permission
+    e_ErrLicensePermissionDeny = 25,
+    /// License has not been initialized
+    e_ErrLicenseUninitialized = 26,
+    /// Illegal access to the API interface
+    e_ErrLicenseIllegalAccess = 27,
+    /// Failed to read license file
+    e_ErrLicenseFileReadFailed = 28,
+    /// The license does not have OCR permissions.
+    e_ErrLicenseOCRPermissionDeny = 29,
+    /// The current conversion concurrency exceeds the license limit.
+    e_ErrLicenseConcurrencyExceeded = 30,
+    /// The current conversion pages exceed the license limit.
+    e_ErrLicensePageLimitExceeded = 31,
+    /// The quota persistence file has been tampered with.
+    e_ErrLicenseQuotaCorrupted = 32,
+
+    /// No tables found in the source file.
+    e_ErrNoTable = 40,
+    /// Failed to call OCR recognition.
+    e_ErrOCRFailure = 41,
+
+    /// Currently executing conversion task.
+    e_ErrConverting = 60,
+
+    /// Invalid argument provided.
+    e_ErrInvalidArg = 80,
+
+    /// The handle is invalid, possibly uninitialized or already released.
+    e_ErrInvalidHandle = 81,
+
+    /// The model file format is invalid or corrupted.
+    e_ErrModelInvalidFormat = 82,
+
+    /// The model does not support the requested function or operation.
+    e_ErrModelFunctionUnsupported = 83,
+
+    /// The model format is not supported by this system or SDK.
+    e_ErrModelFormatUnsupported = 84,
+
+    /// The model is incompatible with the current SDK version.
+    e_ErrModelSDKMismatch = 85,
+
+    /// The image data is empty or not provided.
+    e_ErrImageDataEmpty = 86,
+
+    /// The image width or height is invalid (e.g., less than or equal to zero).
+    e_ErrImageWHError = 87,
+
+    /// The image format is not supported (e.g., not RGB, YUV, etc.).
+    e_ErrImageUnsupportedFormat = 88,
+
+    /// The image is invalid or corrupted.
+    e_ErrImageInvalid = 89,
+
+    /// The resource (e.g., license, token) has expired.
+    e_ErrExpire = 90,
+
+    /// A required argument is missing.
+    e_ErrMissingArg = 91,
+
+    /// The current license does not support calling this API.
+    e_ErrLicenseUnsupportedAPI = 92,
+
+    /// The license does not match the device, module, or version.
+    e_ErrLicenseMismatch = 93,
+
+    /// The table data is invalid or null.
+    e_ErrInvalidTable = 94,
+
+    /// The source document uses a feature this SDK cannot fully reproduce,
+    /// or the requested output cannot carry the input's content. A usable
+    /// output may still have been written: Word to PDF normally still
+    /// produces the PDF and reports this in its optional diagnostics.
+    /// Distinct from e_ErrIO: nothing failed on the disk or in the writer.
+    e_ErrUnsupportedFeature = 95,
+
+    /// Unknown error
+    e_ErrUnknown = 100
+};
+
+/// \brief DocumentAI table recognition model profile.
+enum class TableRecognitionAccuracy
+{
+    /// Prioritize recognition accuracy; may use more resources.
+    e_HighAccuracy = 0,
+    /// Balanced recognition accuracy, resource usage, and throughput.
+    e_Balanced = 1,
+};
+
+/// \brief Page layout mode.
+enum class PageLayoutMode
+{
+    /// Box mode.
+    e_Box,
+    /// Flowing mode.
+    e_Flow
+};
+
+/// \brief Image color mode.
+enum class ImageColorMode
+{
+    /// Color mode.
+    e_Color,
+    /// Gray mode.
+    e_Gray,
+    /// Binary mode.
+    e_Binary,
+};
+
+/// \brief Image type.
+enum class ImageType
+{
+    /// .jpg.
+    e_JPG,
+    /// .jpeg.
+    e_JPEG,
+    /// .jp2.
+    e_JPEG2000,
+    /// .png.
+    e_PNG,
+    /// .bmp.
+    e_BMP,
+    /// .tiff.
+    e_TIFF,
+    /// .tga.
+    e_TGA,
+    /// .gif.
+    e_GIF,
+    /// .webp
+    e_WEBP,
+};
+
+/// \brief Excel Worksheet option.
+enum class ExcelWorksheetOption
+{
+    /// A worksheet to contain only one table.
+    e_ForTable,
+    /// A worksheet to contain table for PDF Page.
+    e_ForPage,
+    /// A worksheet to contain table for PDF Document.
+    e_ForDocument
+};
+
+/// \brief Html option.
+enum class HtmlOption
+{
+    /// Convert the entire PDF file into a single HTML file.
+    e_SinglePage,
+    /// Convert the PDF file into a single HTML file with an outline for navigation at the beginning of the HTML page.
+    e_SinglePageWithBookmark,
+    /// Convert the PDF file into multiple HTML files.
+    e_MultiPage,
+    /// Convert the PDF file into multiple HTML files. Each HTML file corresponds to a PDF page, and users can navigate to the next HTML file via a link at the bottom of the HTML page.
+    e_MultiPageWithBookmark,
+};
+
+/// \brief OCR option.
+enum class OCROption
+{
+    /// Recognize illegal characters in PDF documents.
+    e_InvalidCharacter,
+    /// Recognize scanned pages in PDF documents.
+    e_ScanPage,
+    /// Recognize illegal characters and scanned pages in PDF documents.
+    e_InvalidCharacterAndScanPage,
+    /// Recognize all characters on all pages.
+    e_All,
+};
+
+/// \brief How the PDF bookmarks (the outline shown in a reader's navigation
+/// panel) are generated when converting a Word document to PDF.
+enum class WordPdfBookmarkMode
+{
+    /// Do not generate bookmarks.
+    e_None = 0,
+    /// One bookmark per heading, that is per paragraph with an outline level,
+    /// nested by level.
+    e_Headings,
+    /// One bookmark per Word bookmark, named after it.
+    e_WordBookmarks,
+};
+
+/// \brief Convert options.
+struct ConvertOptions
+{
+    /// Whether to enable AI layout analysis during conversion.
+    bool enable_ai_layout = true;
+
+    /// Whether to enable AI table recognition during conversion.
+    bool enable_ai_table_recognition = true;
+
+    /// Table recognition accuracy. e_Balanced works with the base documentai.model;
+    /// e_HighAccuracy requires the table_legacy.model package. If the model of the
+    /// requested accuracy is not loaded, the conversion still succeeds, but tables
+    /// are recognized with the rule-based method instead, so the result differs.
+    TableRecognitionAccuracy table_recognition_accuracy = TableRecognitionAccuracy::e_Balanced;
+
+    /// Whether to contain images when converting, which takes effect only when enable_ocr is false.
+    bool contain_image = true;
+
+    /// Whether to contain page background images when converting, which takes effect only when enable_ocr is true.
+    bool contain_page_background_image = true;
+
+    /// Whether to contain table when convert pdf to json.
+    bool json_contain_table = true;
+
+    /// Whether to contain annotations when converting.
+    bool contain_annotation = true;
+
+    /// Whether to contain all PDF content in the xlsx file, not only tables.
+    /// Ignored when excel_worksheet_option is e_ForTable.
+    bool excel_all_content = false;
+
+    /// Whether to set to save the table in csv format.
+    bool excel_csv_format = false;
+
+    /// Whether to use OCR.
+    bool enable_ocr = false;
+
+    /// Whether to make the text transparent in the output document. Takes effect only for
+    /// searchable PDF output when contain_page_background_image is true; OFD output always
+    /// uses transparent text.
+    bool transparent_text = true;
+
+    /// Whether format table when convert pdf to txt.
+    bool txt_table_format = true;
+
+    /// Whether to enhance the image path.
+    bool image_path_enhance = false;
+
+    /// Whether to convert formulas to images.
+    bool formula_to_image = true;
+
+    /// Whether to automatically create folder when exporting multiple documents.
+    bool auto_create_folder = true;
+
+    /// whether to output one document per page.
+    bool output_document_per_page = false;
+
+    /// Specify the image scaling of the image file. Must be greater than 0.
+    float image_scaling = 4.0;
+
+    /// Specify the layout mode.
+    PageLayoutMode page_layout_mode = PageLayoutMode::e_Flow;
+
+    /// Specify the Excel worksheet option.
+    ExcelWorksheetOption excel_worksheet_option = ExcelWorksheetOption::e_ForTable;
+
+    /// Specify the Html option.
+    HtmlOption html_option = HtmlOption::e_SinglePage;
+
+    /// Specify the OCR option.
+    OCROption ocr_option = OCROption::e_All;
+
+    /// Specify the image color mode of the image file.
+    ImageColorMode image_color_mode = ImageColorMode::e_Color;
+
+    /// Specify the image type of the image file.
+    ImageType image_type = ImageType::e_JPG;
+
+    /// Specify the preferred font name of the output document, e.g. "Arial". Empty uses the
+    /// default font selection. Takes effect for Word, Excel, PowerPoint, searchable PDF and OFD output.
+    char font_name[256] = {0};
+
+    /// Specify the pages to convert, e.g. "1-3,5,7-9". Empty converts every page.
+    /// For Word to PDF it selects the pages of the laid-out document to output.
+    char page_ranges[256] = {0};
+
+    /// Specify the number of valid entries in languages (at most 32). When OCR is enabled
+    /// and the count is 0, English is used.
+    int language_count = 0;
+
+    /// Specify the OCR languages. Only the first language_count entries are used.
+    OCRLanguage languages[32] = {};
+
+    /// Whether to classify and correct document orientation before OCR image recognition.
+    bool enable_document_orientation_classification = false;
+
+    /// Whether to apply DocumentAI dewarp before OCR image recognition.
+    bool enable_document_dewarp = false;
+
+    /// Whether to size the output page from the image's own resolution, matching it
+    /// to the nearest standard paper. Only takes effect when the input is an image
+    /// file; when disabled, one image pixel becomes one page point.
+    bool enable_auto_page_size = false;
+
+    /// Specify the output page width in points (1 pt = 1/72 inch), or 0 to not
+    /// specify one. Set together with custom_page_height to choose the page
+    /// outright, which takes precedence over enable_auto_page_size. The size is
+    /// used exactly as given, orientation included, and the image is scaled to
+    /// fit inside it without cropping. Only takes effect when the input is an
+    /// image file. For example A4 is 595.28 x 841.89, JIS B5 is 515.91 x 728.50.
+    float custom_page_width = 0.f;
+
+    /// Specify the output page height in points. See \link custom_page_width \endlink.
+    float custom_page_height = 0.f;
+
+    /// How the PDF bookmarks are generated. Only takes effect for Word to PDF.
+    WordPdfBookmarkMode word_pdf_bookmark_mode = WordPdfBookmarkMode::e_None;
+};
+
+}  // namespace base
+}  // namespace pdfsolid
+
+#endif //BASE_TYPE_H

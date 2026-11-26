@@ -1,10 +1,11 @@
 # PDFSolid Conversion SDK for Ruby
 
-High-performance Ruby SDK for converting PDF to Word, Excel, PowerPoint, HTML, Image, TXT, RTF, CSV, JSON, Markdown, Searchable PDF, and OFD with AI-powered OCR, layout analysis, and table recognition.
+High-performance Ruby SDK for converting PDF to Word, Excel, PowerPoint, HTML, Image, TXT, RTF, CSV, JSON, Markdown, Searchable PDF, and OFD with AI-powered OCR, layout analysis, and table recognition. SDK v1.3.0 also converts Word documents (`.docx`) to PDF.
 
 ## Features
 
 - **PDF to Word** (.docx) — Flow and Box layout modes
+- **Word to PDF** (.docx → .pdf) — optional page ranges and PDF bookmarks
 - **PDF to Excel** (.xlsx) — per-table, per-page, or per-document worksheet options
 - **PDF to PowerPoint** (.pptx)
 - **PDF to HTML** (.html) — single/multi-page with optional bookmark navigation
@@ -38,6 +39,8 @@ Contact [sales@pdfsolid.com](mailto:sales@pdfsolid.com) for a 30-day free trial 
 
 ### 2. Apply License and Initialize
 
+For a script using the extracted Linux x86_64 SDK, add its `lib` directory to the Ruby load path (for example, `ruby -Ilib script.rb` from the package root).
+
 ```ruby
 require "pdfsolid_conversion"
 
@@ -62,6 +65,18 @@ PdfSolidConversion::LibraryManager.release
 ```
 
 ## Conversion Examples
+
+### Word (DOCX) to PDF
+
+After applying the license and initializing the SDK, pass the input `.docx` path and a writable output `.pdf` path.
+
+```ruby
+status = PdfSolidConversion::Conversion.start_word_to_pdf("input.docx", "output.pdf")
+```
+
+The default converts all pages without PDF bookmarks. On an optional `PdfSolidConversion::ConvertOptions` passed as the third argument, set `page_ranges` to select pages (for example, `1-2`) and `word_pdf_bookmark_mode` to generate bookmarks from headings or Word bookmarks. Check the returned status before using the PDF. `PdfSolidConversion::ErrorCode::UNSUPPORTED_FEATURE` means the input contains features that may affect fidelity; a PDF may still have been written.
+
+See the [Word to PDF API reference](doc/html/word_to_pdf.html) and [Ruby sample](samples/demo/demo.rb).
 
 ### PDF to Excel
 

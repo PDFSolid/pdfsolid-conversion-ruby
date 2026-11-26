@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Word to PDF | PDFSolid Conversion SDK 1.3.0 — ruby</title><style>body{max-width:60rem;margin:2rem auto;padding:0 1rem;font:16px/1.5 system-ui}pre{overflow:auto;background:#f4f5f7;padding:.75rem}td,th{border:1px solid #bbb;padding:.4rem}table{border-collapse:collapse}</style></head><body><nav><a href="index.html">API reference index</a></nav><h1>Word to PDF</h1><p>PDFSolid Conversion SDK 1.3.0 · Linux x86_64</p><h3><strong>Overview</strong></h3>
+<p>PDFSolid Conversion SDK supports converting Word documents to PDF files. During conversion you can choose to generate PDF bookmarks, output only specific pages. This function is provided by <code>Conversion.start_word_to_pdf</code>. Its options are set through <code>ConvertOptions</code>, the same structure used for PDF conversion; only <code>word_pdf_bookmark_mode</code> and <code>page_ranges</code> take effect for Word to PDF, and the other members are ignored.</p>
+<p><code>Conversion.start_word_to_pdf(file_path, output_path, options = ConvertOptions.new, callback: nil)</code></p>
+<h3><strong>Conversion Options</strong></h3>
+<p>Word to PDF uses only the following members of <code>ConvertOptions</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>word_pdf_bookmark_mode</code></td>
+<td><code>WordPdfBookmarkMode</code></td>
+<td><code>WordPdfBookmarkMode::NONE</code></td>
+<td>How PDF bookmarks (the outline shown in a reader's navigation panel) are generated</td>
+</tr>
+<tr>
+<td><code>page_ranges</code></td>
+<td><code>String</code></td>
+<td>empty</td>
+<td>Pages to output, e.g. <code>&quot;1-3,5,7-9&quot;</code>; empty outputs every page</td>
+</tr>
+</tbody>
+</table>
+<p>Values of <code>WordPdfBookmarkMode</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WordPdfBookmarkMode::NONE</code></td>
+<td>Do not generate bookmarks</td>
+</tr>
+<tr>
+<td><code>WordPdfBookmarkMode::HEADINGS</code></td>
+<td>One bookmark per heading (a paragraph with an outline level), nested by level</td>
+</tr>
+<tr>
+<td><code>WordPdfBookmarkMode::WORD_BOOKMARKS</code></td>
+<td>One bookmark per Word bookmark, named after it</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>Return Values and Diagnostics</strong></h3>
+<ul>
+<li>Documents containing features that may affect fidelity return <code>UNSUPPORTED_FEATURE</code> (95). The PDF is usually still produced; check the output file.</li>
+<li>If conversion itself fails, its actual error code takes precedence over 95.</li>
+<li>This binding does not expose the native diagnostics buffer.</li>
+</ul>
+<h3><strong>Sample</strong></h3>
+<pre><code class="language-ruby">options = PdfSolidConversion::ConvertOptions.new
+options.word_pdf_bookmark_mode = PdfSolidConversion::WordPdfBookmarkMode::HEADINGS
+options.page_ranges = &quot;1-3,5,7-9&quot;
+result = PdfSolidConversion::Conversion.start_word_to_pdf(&quot;input.docx&quot;, &quot;output.pdf&quot;, options)
+</code></pre>
+<h3>Run the packaged example</h3>
+<p>From the Linux package root, run:</p>
+<pre><code class="language-sh">bash samples/demo/RunDemo.sh
+</code></pre>
+<p>The demo reads <code>resource/license/license.xml</code> and <code>samples/input_files/word.docx</code>. In <code>samples/output_files/</code>, <code>word_to_pdf.pdf</code> uses the defaults (all pages, no bookmarks); <code>word_to_pdf_bookmarks.pdf</code> selects pages <code>1-2</code> and creates bookmarks from headings.</p>
+</body></html>

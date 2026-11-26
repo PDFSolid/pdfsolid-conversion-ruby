@@ -2,14 +2,18 @@ require "fiddle"
 
 module PdfSolidConversion
   # Stores conversion settings passed to native conversion APIs.
+  # Word to PDF reads only page_ranges and word_pdf_bookmark_mode; the other
+  # settings do not apply to it.
   class ConvertOptions
-    OPTION_STRUCT_SIZE = 576
+    # sizeof(CConvertOption) on x86_64, including 4 trailing padding bytes.
+    OPTION_STRUCT_SIZE = 592
     STRING_BUFFER_SIZE = 256
     MAX_LANGUAGES = 32
 
     # Whether to enable AI layout analysis during conversion.
     attr_accessor :enable_ai_layout,
                   :enable_ai_table_recognition,
+                  :table_recognition_accuracy,
                   :contain_image,
                   :contain_page_background_image,
                   :json_contain_table,
@@ -19,6 +23,9 @@ module PdfSolidConversion
                   :enable_ocr,
                   :enable_document_orientation_classification,
                   :enable_document_dewarp,
+                  :enable_auto_page_size,
+                  :custom_page_width,
+                  :custom_page_height,
                   :transparent_text,
                   :txt_table_format,
                   :image_path_enhance,
@@ -34,12 +41,15 @@ module PdfSolidConversion
                   :image_type,
                   :font_name,
                   :page_ranges,
-                  :languages
+                  :languages,
+                  # How the PDF bookmarks are generated. Only takes effect for Word to PDF.
+                  :word_pdf_bookmark_mode
 
             # Creates conversion options with SDK default values.
     def initialize
       @enable_ai_layout = true
       @enable_ai_table_recognition = true
+      @table_recognition_accuracy = TableRecognitionAccuracy::BALANCED
       @contain_image = true
       @contain_page_background_image = true
       @json_contain_table = true
@@ -49,6 +59,9 @@ module PdfSolidConversion
       @enable_ocr = false
       @enable_document_orientation_classification = false
       @enable_document_dewarp = false
+      @enable_auto_page_size = false
+      @custom_page_width = 0.0
+      @custom_page_height = 0.0
       @transparent_text = false
       @txt_table_format = true
       @image_path_enhance = false
@@ -65,6 +78,7 @@ module PdfSolidConversion
       @font_name = ""
       @page_ranges = ""
       @languages = []
+      @word_pdf_bookmark_mode = WordPdfBookmarkMode::NONE
     end
 
     # Converts Ruby option values into the native option structure.
@@ -107,8 +121,13 @@ module PdfSolidConversion
         fixed_string(@page_ranges),
         language_pointer_value,
         bool(@enable_document_orientation_classification),
-        bool(@enable_document_dewarp)
-      ].pack("C15xifiiiiiia256a256JC2x6")
+        bool(@enable_document_dewarp),
+        bool(@enable_auto_page_size),
+        @custom_page_width.to_f,
+        @custom_page_height.to_f,
+        @table_recognition_accuracy.to_i,
+        @word_pdf_bookmark_mode.to_i
+      ].pack("C15xifiiiiiia256a256JC3xffiix4")
 
       pointer = Fiddle::Pointer.malloc(OPTION_STRUCT_SIZE)
       pointer[0, OPTION_STRUCT_SIZE] = packed
